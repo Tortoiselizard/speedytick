@@ -1,23 +1,33 @@
-import logo from './logo.svg';
+import React from 'react';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [time, setTime] = useState({
+    minutes:"",
+    seconds: "",
+    microSeconds: ""
+  })
+
+  function handleTime(event) {
+    setTime(time => ({
+      ...time,
+      [event.target.name]: event.target.value
+    }))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        <input name='seconds' value={time.hours} onChange={handleTime} placeholder={"00"}/> :
+        <input name='seconds' value={time.minutes} onChange={handleTime} placeholder={"00"}/> :
+        <input name='microSeconds' value={time.seconds} onChange={handleTime} placeholder={"00"}/>
+      </div>
+      <div>
+        <button>Editar</button>
+        <button>Reiniciar</button>
+        <button>Iniciar</button>
+      </div>
     </div>
   );
 }
