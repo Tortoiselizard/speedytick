@@ -24,7 +24,7 @@ function App() {
 
   function updateTime() {
     currentTime.current.seconds--
-    if (currentTime.current.hours || currentTime.current.minutes || currentTime.current.seconds) {
+    if (currentTime.current.hours || currentTime.current.minutes || currentTime.current.seconds>=0) {
       setTime(time=> ({...time, seconds: currentTime.current.seconds}))
     } else {
       stop()
