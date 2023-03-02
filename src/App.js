@@ -18,7 +18,7 @@ function App() {
   }
 
   function updateTime() {
-    setTime(time=> ({...time, seconds: time.seconds++}))
+    setTime(time=> ({...time, seconds: time.seconds--}))
   }
 
   function start() {    
