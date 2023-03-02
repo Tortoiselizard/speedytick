@@ -4,9 +4,9 @@ import './App.css';
 
 function App() {
   const [time, setTime] = useState({
-    minutes:"",
-    seconds: "",
-    microSeconds: ""
+    hours:"",
+    minutes: "",
+    seconds: ""
   })
 
   function handleTime(event) {
@@ -19,9 +19,9 @@ function App() {
   return (
     <div>
       <div>
-        <input name='seconds' value={time.hours} onChange={handleTime} placeholder={"00"}/> :
-        <input name='seconds' value={time.minutes} onChange={handleTime} placeholder={"00"}/> :
-        <input name='microSeconds' value={time.seconds} onChange={handleTime} placeholder={"00"}/>
+        <input name='hours' value={time.hours} onChange={handleTime} placeholder={"00"}/> :
+        <input name='minutes' value={time.minutes} onChange={handleTime} placeholder={"00"}/> :
+        <input name='seconds' value={time.seconds} onChange={handleTime} placeholder={"00"}/>
       </div>
       <div>
         <button>Editar</button>
