@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css';
 
 function App() {
@@ -8,12 +8,25 @@ function App() {
     minutes: "",
     seconds: ""
   })
+  let nintervalID = useRef(0)
 
   function handleTime(event) {
     setTime(time => ({
       ...time,
-      [event.target.name]: event.target.value
+      [event.target.name]: Number(event.target.value)
     }))
+  }
+
+  function updateTime() {
+    setTime(time=> ({...time, seconds: time.seconds++}))
+  }
+
+  function start() {    
+    nintervalID.current = setInterval(updateTime, 1000)
+  }
+
+  function stop() {
+    clearInterval(nintervalID.current)
   }
 
   return (
@@ -26,7 +39,8 @@ function App() {
       <div>
         <button>Editar</button>
         <button>Reiniciar</button>
-        <button>Iniciar</button>
+        <button onClick={stop}>Detener</button>
+        <button onClick={start}>Iniciar</button>
       </div>
     </div>
   );
