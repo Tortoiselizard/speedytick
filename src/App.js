@@ -8,7 +8,12 @@ function App() {
     minutes: 0,
     seconds: 0
   })
-  let nintervalID = useRef(0)
+  const nintervalID = useRef(0)
+  const currentTime = useRef({
+    hours: time.hours,
+    minutes: time.minutes,
+    seconds: time.seconds
+  })
 
   function handleTime(event) {
     setTime(time => ({
@@ -18,10 +23,16 @@ function App() {
   }
 
   function updateTime() {
-    setTime(time=> ({...time, seconds: time.seconds--}))
-  }
+    currentTime.current.seconds--
+    if (currentTime.current.hours || currentTime.current.minutes || currentTime.current.seconds) {
+      setTime(time=> ({...time, seconds: currentTime.current.seconds}))
+    } else {
+      stop()
+    }
+  } 
 
-  function start() {    
+  function start() {
+    currentTime.current = time
     updateTime()
     nintervalID.current = setInterval(updateTime, 1000)
   }
