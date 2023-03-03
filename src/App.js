@@ -33,7 +33,6 @@ function App() {
 
   function start() {
     currentTime.current = time
-    updateTime()
     nintervalID.current = setInterval(updateTime, 1000)
   }
 
