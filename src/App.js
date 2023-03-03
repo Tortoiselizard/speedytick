@@ -30,10 +30,36 @@ function App() {
 
   function changeTime() {
     if (currentTime.current.seconds >= 0) {
-      setTime(time=> ({...time, seconds: currentTime.current.seconds}))
+      setTime(time=> ({...time, seconds: `${currentTime.current.seconds}`}))
       return true
+    } else {
+      if (currentTime.current.minutes > 0) {
+        currentTime.current = {
+          hours:currentTime.current.hours,
+          minutes: --currentTime.current.minutes,
+          seconds:59
+        }
+        setTime(time=> ({...time,
+          minutes:`${currentTime.current.minutes}`,
+          seconds: `${currentTime.current.seconds}`})
+        )
+        return true
+      }
+      if (currentTime.current.hours > 0) {
+        currentTime.current = {
+          hours: --currentTime.current.hours,
+          minutes:59,
+          seconds:59
+        }
+        setTime({
+          hours: `${currentTime.current.hours}`,
+          minutes:`${currentTime.current.minutes}`,
+          seconds: `${currentTime.current.seconds}`}
+        )
+        return true
+      }
+      return false
     }
-    return false
   }
 
   function start() {
