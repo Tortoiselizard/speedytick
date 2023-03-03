@@ -4,9 +4,9 @@ import './App.css';
 
 function App() {
   const [time, setTime] = useState({
-    hours: 0,
-    minutes: 0,
-    seconds: 0
+    hours: "",
+    minutes: "",
+    seconds: ""
   })
   const nintervalID = useRef(0)
   const currentTime = useRef({
@@ -37,7 +37,11 @@ function App() {
   }
 
   function start() {
-    currentTime.current = time
+    currentTime.current = {
+      hours: Number(time.hours),
+      minutes: Number(time.minutes),
+      seconds: Number(time.seconds)
+    }
     nintervalID.current = setInterval(updateTime, 1000)
   }
 
