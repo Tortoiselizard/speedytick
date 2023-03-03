@@ -14,12 +14,16 @@ function App() {
     minutes: time.minutes,
     seconds: time.seconds
   })
+  const initialTime = useRef(time)
 
   function handleTime(event) {
     setTime(time => ({
       ...time,
       [event.target.name]: event.target.value
     }))
+    initialTime.current = {...time,
+      [event.target.name]: event.target.value
+    }
   }
 
   function updateTime() {
@@ -75,6 +79,11 @@ function App() {
     clearInterval(nintervalID.current)
   }
 
+  function reset() {
+    stop()
+    setTime(initialTime.current)
+  }
+
   return (
     <div>
       <div>
@@ -83,8 +92,7 @@ function App() {
         <input name='seconds' value={time.seconds} onChange={handleTime} placeholder={"00"}/>
       </div>
       <div>
-        <button>Editar</button>
-        <button>Reiniciar</button>
+        <button onClick={reset}>Reiniciar</button>
         <button onClick={stop}>Detener</button>
         <button onClick={start}>Iniciar</button>
       </div>
