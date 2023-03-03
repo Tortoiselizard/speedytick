@@ -78,6 +78,7 @@ function App() {
 
   function stop() {
     clearInterval(nintervalID.current)
+    disableInputs()
   }
 
   function reset() {
@@ -87,11 +88,11 @@ function App() {
 
   function disableInputs() {
     const inputHours = document.querySelector("input[name='hours']")
-    inputHours.disabled = true
+    inputHours.disabled = !inputHours.disabled
     const inputMinutes = document.querySelector("input[name='minutes']")
-    inputMinutes.disabled = true
+    inputMinutes.disabled = !inputMinutes.disabled
     const inputSeconds = document.querySelector("input[name='seconds']")
-    inputSeconds.disabled = true
+    inputSeconds.disabled = !inputSeconds.disabled
   }
 
   return (
