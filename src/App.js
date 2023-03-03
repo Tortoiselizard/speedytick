@@ -14,6 +14,7 @@ function App() {
     minutes: time.minutes,
     seconds: time.seconds
   })
+  const initialTime = useRef(time)
 
   function handleTime(event) {
     setTime(time => ({
@@ -68,11 +69,21 @@ function App() {
       minutes: Number(time.minutes),
       seconds: Number(time.seconds)
     }
+    initialTime.current = {
+      hours: `${currentTime.current.hours}`,
+      minutes: `${currentTime.current.minutes}`,
+      seconds: `${currentTime.current.seconds }`
+    }
     nintervalID.current = setInterval(updateTime, 1000)
   }
 
   function stop() {
     clearInterval(nintervalID.current)
+  }
+
+  function reset() {
+    stop()
+    setTime(initialTime.current)
   }
 
   return (
@@ -84,7 +95,7 @@ function App() {
       </div>
       <div>
         <button>Editar</button>
-        <button>Reiniciar</button>
+        <button onClick={reset}>Reiniciar</button>
         <button onClick={stop}>Detener</button>
         <button onClick={start}>Iniciar</button>
       </div>
