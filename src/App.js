@@ -21,6 +21,9 @@ function App() {
       ...time,
       [event.target.name]: event.target.value
     }))
+    initialTime.current = {...time,
+      [event.target.name]: event.target.value
+    }
   }
 
   function updateTime() {
@@ -68,11 +71,6 @@ function App() {
       hours: Number(time.hours),
       minutes: Number(time.minutes),
       seconds: Number(time.seconds)
-    }
-    initialTime.current = {
-      hours: `${currentTime.current.hours}`,
-      minutes: `${currentTime.current.minutes}`,
-      seconds: `${currentTime.current.seconds }`
     }
     nintervalID.current = setInterval(updateTime, 1000)
   }
