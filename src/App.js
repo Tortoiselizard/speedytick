@@ -72,6 +72,7 @@ function App() {
       minutes: Number(time.minutes),
       seconds: Number(time.seconds)
     }
+    disableInputs()
     nintervalID.current = setInterval(updateTime, 1000)
   }
 
@@ -82,6 +83,15 @@ function App() {
   function reset() {
     stop()
     setTime(initialTime.current)
+  }
+
+  function disableInputs() {
+    const inputHours = document.querySelector("input[name='hours']")
+    inputHours.disabled = true
+    const inputMinutes = document.querySelector("input[name='minutes']")
+    inputMinutes.disabled = true
+    const inputSeconds = document.querySelector("input[name='seconds']")
+    inputSeconds.disabled = true
   }
 
   return (
