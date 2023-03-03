@@ -4,9 +4,9 @@ import './App.css';
 
 function App() {
   const [time, setTime] = useState({
-    hours: 0,
-    minutes: 0,
-    seconds: 0
+    hours: "",
+    minutes: "",
+    seconds: ""
   })
   const nintervalID = useRef(0)
   const currentTime = useRef({
@@ -18,22 +18,56 @@ function App() {
   function handleTime(event) {
     setTime(time => ({
       ...time,
-      [event.target.name]: Number(event.target.value)
+      [event.target.name]: event.target.value
     }))
   }
 
   function updateTime() {
     currentTime.current.seconds--
-    if (currentTime.current.hours || currentTime.current.minutes || currentTime.current.seconds>=0) {
-      setTime(time=> ({...time, seconds: currentTime.current.seconds}))
+    const goOn = changeTime()
+    if (!goOn) stop()
+  }
+
+  function changeTime() {
+    if (currentTime.current.seconds >= 0) {
+      setTime(time=> ({...time, seconds: `${currentTime.current.seconds}`}))
+      return true
     } else {
-      stop()
+      if (currentTime.current.minutes > 0) {
+        currentTime.current = {
+          hours:currentTime.current.hours,
+          minutes: --currentTime.current.minutes,
+          seconds:59
+        }
+        setTime(time=> ({...time,
+          minutes:`${currentTime.current.minutes}`,
+          seconds: `${currentTime.current.seconds}`})
+        )
+        return true
+      }
+      if (currentTime.current.hours > 0) {
+        currentTime.current = {
+          hours: --currentTime.current.hours,
+          minutes:59,
+          seconds:59
+        }
+        setTime({
+          hours: `${currentTime.current.hours}`,
+          minutes:`${currentTime.current.minutes}`,
+          seconds: `${currentTime.current.seconds}`}
+        )
+        return true
+      }
+      return false
     }
-  } 
+  }
 
   function start() {
-    currentTime.current = time
-    updateTime()
+    currentTime.current = {
+      hours: Number(time.hours),
+      minutes: Number(time.minutes),
+      seconds: Number(time.seconds)
+    }
     nintervalID.current = setInterval(updateTime, 1000)
   }
 
