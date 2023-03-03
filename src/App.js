@@ -15,6 +15,10 @@ function App() {
     seconds: time.seconds
   })
   const initialTime = useRef(time)
+  const buttonStart = useRef()
+  const buttonStop = useRef()
+  const buttonReset = useRef()
+  const disabled = useRef(false)
 
   function handleTime(event) {
     setTime(time => ({
@@ -72,29 +76,43 @@ function App() {
       minutes: Number(time.minutes),
       seconds: Number(time.seconds)
     }
+    disableTags()
     nintervalID.current = setInterval(updateTime, 1000)
   }
 
   function stop() {
     clearInterval(nintervalID.current)
+    disableTags()
   }
 
   function reset() {
-    stop()
     setTime(initialTime.current)
+  }
+
+  function disableTags() {
+    disabled.current = !disabled.current
+    const inputHours = document.querySelector("input[name='hours']")
+    inputHours.disabled = disabled.current
+    const inputMinutes = document.querySelector("input[name='minutes']")
+    inputMinutes.disabled = disabled.current
+    const inputSeconds = document.querySelector("input[name='seconds']")
+    inputSeconds.disabled = disabled.current
+    buttonStart.current.disabled = disabled.current
+    buttonReset.current.disabled = disabled.current
+    buttonStop.current.disabled = !disabled.current
   }
 
   return (
     <div>
       <div>
-        <input name='hours' value={time.hours} onChange={handleTime} placeholder={"00"}/> :
-        <input name='minutes' value={time.minutes} onChange={handleTime} placeholder={"00"}/> :
-        <input name='seconds' value={time.seconds} onChange={handleTime} placeholder={"00"}/>
+        <input name='hours' value={time.hours} onChange={handleTime} placeholder={"00"} /> :
+        <input name='minutes' value={time.minutes} onChange={handleTime} placeholder={"00"} /> :
+        <input name='seconds' value={time.seconds} onChange={handleTime} placeholder={"00"} />
       </div>
       <div>
-        <button onClick={reset}>Reiniciar</button>
-        <button onClick={stop}>Detener</button>
-        <button onClick={start}>Iniciar</button>
+        <button name='reset' onClick={reset} ref={buttonReset}>Reiniciar</button>
+        <button name='stop' onClick={stop} ref={buttonStop}>Detener</button>
+        <button name='start' onClick={start} ref={buttonStart}>Iniciar</button>
       </div>
     </div>
   );
