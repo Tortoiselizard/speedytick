@@ -18,7 +18,7 @@ function App() {
   function handleTime(event) {
     setTime(time => ({
       ...time,
-      [event.target.name]: Number(event.target.value)
+      [event.target.name]: event.target.value
     }))
   }
 
