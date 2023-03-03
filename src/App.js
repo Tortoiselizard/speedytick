@@ -92,7 +92,6 @@ function App() {
         <input name='seconds' value={time.seconds} onChange={handleTime} placeholder={"00"}/>
       </div>
       <div>
-        <button>Editar</button>
         <button onClick={reset}>Reiniciar</button>
         <button onClick={stop}>Detener</button>
         <button onClick={start}>Iniciar</button>
